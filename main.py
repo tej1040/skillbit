@@ -35,10 +35,10 @@ def get_conn():
 
 # ---------------- UTILS ---------------- #
 def get_password_hash(password):
-    return pwd_context.hash(password)
+    return pwd_context.hash(password[:72])
 
 def verify_password(plain, hashed):
-    return pwd_context.verify(plain, hashed)
+    return pwd_context.verify(plain[:72], hashed)
 
 # ---------------- MODELS ---------------- #
 class UserSignup(BaseModel):
