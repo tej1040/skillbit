@@ -1,5 +1,6 @@
 import os
 import random
+import bcrypt
 from datetime import datetime
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -34,11 +35,11 @@ def get_conn():
         )
 
 # ---------------- UTILS ---------------- #
-def get_password_hash(password):
-    return pwd_context.hash(password[:72])
+def get_password_hash(password: str):
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-def verify_password(plain, hashed):
-    return pwd_context.verify(plain[:72], hashed)
+def verify_password(plain: str, hashed: str):
+    return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
 
 # ---------------- MODELS ---------------- #
 class UserSignup(BaseModel):
