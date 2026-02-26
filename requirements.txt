@@ -1,7 +1,8 @@
+bcrypt
 fastapi
 uvicorn
 psycopg2-binary
-python-dotenv
-passlib[bcrypt]
-pypdf
 python-multipart
+pydantic
+python-dotenv
+pypdf
