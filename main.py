@@ -27,7 +27,11 @@ app.add_middleware(
 
 # ---------------- DB ---------------- #
 def get_conn():
-    return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
+        return psycopg2.connect(
+        DATABASE_URL,
+        sslmode="require",
+        cursor_factory=RealDictCursor
+        )
 
 # ---------------- UTILS ---------------- #
 def get_password_hash(password):
