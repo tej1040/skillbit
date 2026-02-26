@@ -76,15 +76,13 @@ def signup(u: UserSignup):
         with get_conn() as conn:
             with conn.cursor() as c:
                 c.execute(
-                    """INSERT INTO users
-                    (email, password, role, name, tokens, company, designation)
-                    VALUES (%s, %s, %s, %s, 50, %s, %s)""",
+                    "INSERT INTO users (email, password, role, name, tokens, company, designation) VALUES (%s, %s, %s, %s, 50, %s, %s)",
                     (u.email, get_password_hash(u.password), u.role, u.name, u.company, u.designation),
                 )
             conn.commit()
         return {"status": "success"}
-    except:
-        return {"status": "error", "message": "Email exists"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 @app.post("/api/login")
 def login(u: UserLogin):
